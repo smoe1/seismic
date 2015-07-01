@@ -34,8 +34,8 @@ subroutine src2(meqn,mbc,mx,my,xlower,ylower,dx,dy,q,maux,aux,t,dt)
 
     do 20 i=1,mx
       do 20 j=1,my
-        x=xlower+0.5*i*dx
-        y=ylower+0.5*j*dy
+        x=xlower+(i+0.5)*dx
+        y=ylower+(j+0.5)*dy
 
         if (x.ge.0.45.and.y.ge.0.45.and.x.le.0.55.and.y.le.0.55) then
           lam = aux(2,i,j)
