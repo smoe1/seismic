@@ -28,7 +28,7 @@ subroutine src2(meqn,mbc,mx,my,xlower,ylower,dx,dy,q,maux,aux,t,dt)
     common /combc/ t0wall,tperiod,pi2,amplitude,t0force
 
     
-        Beta=1000.d0
+        Beta=100000.d0
         x0=0.5d0
         y0=0.5d0
 
