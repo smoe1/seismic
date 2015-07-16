@@ -126,13 +126,13 @@ subroutine rpn2(ixy,maxm,meqn,mwaves,maux,mbc,mx,ql,qr,auxl,auxr,wave,s,amdq,apd
         xl  = auxr(6,i-1)
         yl  = auxr(7,i-1)
         
-        !if (ixy .eq. 2 .and. xl .ge. 0.45 .and. xl .le. 0.55 .and. &
-        !    xr .ge. 0.45 .and. xr .le. 0.55 .and. yl .le. 0.5 .and. &
-        !    yr .ge. 0.5) then
+        if (ixy .eq. 2 .and. xl .ge. 0.45 .and. xl .le. 0.55 .and. &
+            xr .ge. 0.45 .and. xr .le. 0.55 .and. yl .le. 0.5 .and. &
+            yr .ge. 0.5) then
 
-         !   amur=0.0
-         !   amul=0.0
-        !endif
+            amur=0.0
+            amul=0.0
+        endif
 
         bulkr = alamr + 2.d0*amur
         bulkl = alaml + 2.d0*amul
