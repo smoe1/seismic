@@ -22,14 +22,15 @@ subroutine src2(meqn,mbc,mx,my,xlower,ylower,dx,dy,q,maux,aux,t,dt)
 
     double precision y,v,mu,lam,beta,fun1,sc
     double precision tfun,tbeta,ut,vt
-    double precision x,u,x11,x12,x22,x0,y0
+    double precision x,u,x11,x12,x22,x0,y0,vs
     double precision t0wall,tperiod,pi2,amplitude,t0force
     integer j1,j
     integer i1,i
     common /combc/ t0wall,tperiod,pi2,amplitude,t0force
 
     
-        Beta=300.d0
+        Beta=200.d0
+        !Beta=200.d0
         tbeta=50.d0
         x0=0.5d0
         y0=0.5d0
@@ -44,31 +45,19 @@ subroutine src2(meqn,mbc,mx,my,xlower,ylower,dx,dy,q,maux,aux,t,dt)
           mu = aux(3,i,j)
 
           fun1=1.0e-3*exp(-Beta*((x-x0)**2+(y-y0)**2))
-          !if (y .le. 0.5) then
-          !   fun1=-fun1
-          !endif
-          tfun=exp(-tbeta*t)
-
-          x11=(-2.d0*Beta+(2.d0*Beta*(x-x0))**2)*fun1*(1.d0-tfun)
-          x12=((2.d0*Beta)**2*(x-x0)*(y-y0))*fun1*(1.d0-tfun)
-          x22=(-2.d0*Beta+(2.d0*Beta*(y-y0))**2)*fun1*(1.d0-tfun)
-
-          ut=fun1*(-tbeta*tbeta*tfun)
-          vt=0.d0
-         
-
-          !sc=Max(t,1.0)*1.0e-2
-          sc=1.0*1.0e-2
-
-
-          !u=-1.0e-2*(lam*x11+mu*(2.d0*x11+x22))
-          !v=-1.0e-2*(lam*x12+mu*x12)
-          u=(lam*x11+mu*(2.d0*x11+x22))
-          v=(lam*x12+mu*x12)
-
+          if (y .lt. 0.5) then
+             fun1=-fun1
+          endif
+          vs=1.0e3
+          !q(6,:,:) contains the x displacement at a point
+          !q(7,:,:) contains the y displacement at a point
+          u=vs*(fun1-q(6,i,j))
+          v=-vs*q(7,i,j)
+          !u and v are forces that go to zero when the displacement at 
+          !a point goes to zero. We use them to drive the solution 
 
           !print *,i1,j1,xlower,ylower," HERE! ",q(4,i1,j1),q(5,i1,j1)
-          q(4,i,j)=q(4,i,j)+dt*u-ut*dt
+          q(4,i,j)=q(4,i,j)+dt*u
           q(5,i,j)=q(5,i,j)+dt*v
          !print *,i1,j1,xlower,ylower," HERE2! ",q(4,i1,j1),q(5,i1,j1)
         !endif

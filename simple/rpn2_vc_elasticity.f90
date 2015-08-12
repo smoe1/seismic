@@ -126,8 +126,8 @@ subroutine rpn2(ixy,maxm,meqn,mwaves,maux,mbc,mx,ql,qr,auxl,auxr,wave,s,amdq,apd
         xl  = auxr(6,i-1)
         yl  = auxr(7,i-1)
         
-        if (ixy .eq. 2 .and. xl .ge. 0.45 .and. xl .le. 0.55 .and. &
-            xr .ge. 0.45 .and. xr .le. 0.55 .and. yl .le. 0.5 .and. &
+        if (ixy .eq. 2 .and. xl .ge. 0.49 .and. xl .le. 0.51 .and. &
+            xr .ge. 0.49 .and. xr .le. 0.51 .and. yl .le. 0.5 .and. &
             yr .ge. 0.5) then
 
             amur=0.0
@@ -196,6 +196,11 @@ subroutine rpn2(ixy,maxm,meqn,mwaves,maux,mbc,mx,ql,qr,auxl,auxr,wave,s,amdq,apd
             amdq(m,i) = s(1,i)*wave(m,1,i) + s(3,i)*wave(m,3,i)
             apdq(m,i) = s(2,i)*wave(m,2,i) + s(4,i)*wave(m,4,i)
         enddo
+        amdq(6,i) = 0.d0
+        amdq(7,i) = 0.d0
+       
+        apdq(6,i) = 0.d0
+        apdq(7,i) = 0.d0
     enddo
 
     return

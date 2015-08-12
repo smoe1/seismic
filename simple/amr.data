@@ -4,10 +4,10 @@
 ###    and then "make .data"                        ####
 ########################################################
 
-3                    =: amr_levels_max      
-4 4 2 2              =: refinement_ratios_x 
-4 4 2 2              =: refinement_ratios_y 
-4 4 2 2              =: refinement_ratios_t 
+1                    =: amr_levels_max      
+4 4 4                =: refinement_ratios_x 
+4 4 4                =: refinement_ratios_y 
+4 4 4                =: refinement_ratios_t 
 
 'center' 'center' 'center' 'center' 'center' 'center' 'center' =: aux_type            
 

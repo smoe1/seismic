@@ -9,27 +9,27 @@
 1.0 1.0              =: upper               
 100 100              =: num_cells           
 
-5                    =: num_eqn             
+7                    =: num_eqn             
 4                    =: num_waves           
 7                    =: num_aux             
 
 0.0                  =: t0                  
 
 1                    =: output_style        
-50                   =: num_output_times    
-50.0                 =: tfinal              
+100                  =: num_output_times    
+40.0                 =: tfinal              
 T                    =: output_t0           
 
 1                    =: output_format       
-1 1 1 1 1            =: iout_q              
+1 1 1 1 1 1 1        =: iout_q              
 0 0 0 0 0 0 0        =: iout_aux            
 T                    =: output_aux_onlyonce 
 
-0.01                 =: dt_initial          
+1e-05                =: dt_initial          
 1e+99                =: dt_max              
-1.0                  =: cfl_max             
-0.9                  =: cfl_desired         
-100000               =: steps_max           
+0.2                  =: cfl_max             
+0.1                  =: cfl_desired         
+1000000000           =: steps_max           
 
 T                    =: dt_variable         
 1                    =: order               

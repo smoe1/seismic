@@ -47,7 +47,7 @@ SOURCES = \
   rpn2_vc_elasticity.f90 \
   $(CLAW)/riemann/src/rpt2_vc_elasticity.f90 \
   $(AMRLIB)/amr2.f90 \
-  $(AMRLIB)/b4step2.f90 \
+  b4step2.f90 \
   $(AMRLIB)/qad.f \
   src2.f90 \
   $(AMRLIB)/src1d.f90 \

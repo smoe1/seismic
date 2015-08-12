@@ -81,7 +81,7 @@ def setrun(claw_pkg='amrclaw'):
     # ---------------
 
     # Number of equations in the system:
-    clawdata.num_eqn = 5
+    clawdata.num_eqn = 7
 
     # Number of auxiliary variables in the aux array (initialized in setaux)
     clawdata.num_aux = 7
@@ -120,8 +120,8 @@ def setrun(claw_pkg='amrclaw'):
     if clawdata.output_style==1:
         # Output ntimes frames at equally spaced times up to tfinal:
         # Can specify num_output_times = 0 for no output
-        clawdata.num_output_times = 50
-        clawdata.tfinal = 50.0
+        clawdata.num_output_times = 100
+        clawdata.tfinal = 40.0
         clawdata.output_t0 = True  # output at initial (or restart) time?
         
     elif clawdata.output_style == 2:
@@ -164,18 +164,18 @@ def setrun(claw_pkg='amrclaw'):
     
     # Initial time step for variable dt.  
     # (If dt_variable==0 then dt=dt_initial for all steps)
-    clawdata.dt_initial = 1.000000e-02
+    clawdata.dt_initial = 1.000000e-05
     
     # Max time step to be allowed if variable dt used:
     clawdata.dt_max = 1.000000e+99
     
     # Desired Courant number if variable dt used 
-    clawdata.cfl_desired = 0.900000
+    clawdata.cfl_desired = 0.100000
     # max Courant number to allow without retaking step with a smaller dt:
-    clawdata.cfl_max = 1.000000
+    clawdata.cfl_max = 0.200000
     
     # Maximum number of time steps to allow between output times:
-    clawdata.steps_max = 100000
+    clawdata.steps_max = 1000000000
 
 
     # ------------------
@@ -230,11 +230,11 @@ def setrun(claw_pkg='amrclaw'):
     #   2 or 'periodic' => periodic (must specify this at both boundaries)
     #   3 or 'wall'     => solid wall for systems where q(2) is normal velocity
     
-    clawdata.bc_lower[0] = 'extrap'   # at xlower
-    clawdata.bc_upper[0] = 'extrap'   # at xupper
+    clawdata.bc_lower[0] = 1   # at xlower
+    clawdata.bc_upper[0] = 1   # at xupper
 
-    clawdata.bc_lower[1] = 'extrap'   # at ylower
-    clawdata.bc_upper[1] = 'extrap'   # at yupper
+    clawdata.bc_lower[1] = 1   # at ylower
+    clawdata.bc_upper[1] = 1   # at yupper
                   
 
                   
@@ -245,8 +245,11 @@ def setrun(claw_pkg='amrclaw'):
     gauges = rundata.gaugedata.gauges 
     # for gauges append lines of the form  [gaugeno, x, y, t1, t2]
     for gaugeno,x in enumerate(np.linspace(0.1,0.9,18)):
-        gauges.append([gaugeno,x,0.99,0,1e10])
-
+        gauges.append([2*gaugeno,x,0.99,0,1e10])
+        gauges.append([2*gaugeno+1,x,0.5,0,1e10])
+    gauges.append([37,0.5,0.5,0,1e10])
+    gauges.append([38,0.5,0.495,0,1e10])
+    gauges.append([39,0.5,0.505,0,1e10])
                   
     # --------------
     # Checkpointing:
@@ -282,13 +285,13 @@ def setrun(claw_pkg='amrclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 3
+    amrdata.amr_levels_max = 1
 
     # List of refinement ratios at each level (length at least
     # amr_level_max-1)
-    amrdata.refinement_ratios_x = [4,4,2,2]
-    amrdata.refinement_ratios_y = [4,4,2,2]
-    amrdata.refinement_ratios_t = [4,4,2,2]
+    amrdata.refinement_ratios_x = [4,4,4]
+    amrdata.refinement_ratios_y = [4,4,4]
+    amrdata.refinement_ratios_t = [4,4,4]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -332,8 +335,9 @@ def setrun(claw_pkg='amrclaw'):
     regions = rundata.regiondata.regions 
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
-    regions.append([1,3,0,1e9, 0,1, 0,1])
-    regions.append([2,3,0,1e9, 0.45,0.55, 0.45,0.55])
+    regions.append([1,4,0,1e9, 0,1, 0,1])
+    regions.append([3,3,0,1e9, 0.4,0.6, 0.4,0.5])
+    regions.append([3,3,0,1e9, 0.4,0.6, 0.5,0.6])
 
 
     #  ----- For developers ----- 

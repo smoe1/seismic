@@ -66,6 +66,24 @@ def setplot(plotdata):
         d = vstack((d0,d2,d1))      
         return d
 
+    def logu(current_data):
+        from numpy import log,exp,abs
+
+        q = current_data.q
+        u = q[3,:,:]
+        v = q[4,:,:]
+        c=log(abs(u)+exp(1.0e-16))
+        return c
+
+    def logv(current_data):
+        from numpy import log,exp,abs
+
+        q = current_data.q
+        u = q[3,:,:]
+        v = q[4,:,:]
+        c=log(abs(v)+exp(1.0e-16))
+        return c
+
     def curl(current_data):
         from numpy import array,zeros,hstack,vstack
         q = current_data.q
@@ -96,37 +114,38 @@ def setplot(plotdata):
 
     # Set up for axes in this figure:
     plotaxes = plotfigure.new_plotaxes()
-    plotaxes.axescmd = 'axes([.1,.6,.35,.4])' # 'subplot(221)'
+    plotaxes.axescmd = 'axes([.1,.5,.35,.35])' # 'subplot(221)'
     plotaxes.xlimits = 'auto'
     plotaxes.ylimits = 'auto'
-    plotaxes.title = 'trace(sigma)'
+    plotaxes.title = 'u'
     plotaxes.scaled = True
     #plotaxes.afteraxes = plot_interfaces
 
     # Set up for item on these axes:
     plotitem = plotaxes.new_plotitem(plot_type='2d_pcolor')
-    plotitem.plot_var = sigmatr
+    #plotitem.plot_var = sigmatr
+    plotitem.plot_var = 3
     plotitem.pcolor_cmap = colormaps.blue_white_red
-    plotitem.pcolor_cmin = -0.003
-    plotitem.pcolor_cmax = 0.003
-    plotitem.add_colorbar = False
+    plotitem.pcolor_cmin = -3.0e-3
+    plotitem.pcolor_cmax = 3.0e-3
+    plotitem.add_colorbar = True
     plotitem.amr_celledges_show = [False]
     plotitem.amr_patchedges_show = [0]
 
     plotaxes = plotfigure.new_plotaxes()
-    plotaxes.axescmd = 'axes([.5,.6,.45,.4])' # 'subplot(222)'
+    plotaxes.axescmd = 'axes([.5,.5,.35,.35])' # 'subplot(222)'
     plotaxes.xlimits = 'auto'
     plotaxes.ylimits = 'auto'
-    plotaxes.title = 'sigma_12'
+    plotaxes.title = 'v'
     plotaxes.scaled = True
     #plotaxes.afteraxes = plot_interfaces
 
     # Set up for item on these axes:
     plotitem = plotaxes.new_plotitem(plot_type='2d_pcolor')
-    plotitem.plot_var = 2
+    plotitem.plot_var = 4
     plotitem.pcolor_cmap = colormaps.blue_white_red
-    plotitem.pcolor_cmin = -0.003
-    plotitem.pcolor_cmax = 0.003
+    plotitem.pcolor_cmin = -3.0e-3
+    plotitem.pcolor_cmax = 3.0e-3
     plotitem.add_colorbar = True
     plotitem.colorbar_shrink = 0.7
     plotitem.amr_celledges_show = [False]
@@ -134,39 +153,39 @@ def setplot(plotdata):
 
 
     plotaxes = plotfigure.new_plotaxes()
-    plotaxes.axescmd = 'axes([.1,.1,.35,.4])' # 'subplot(223)'
+    plotaxes.axescmd = 'axes([.1,.1,.35,.35])' # 'subplot(223)'
     plotaxes.xlimits = 'auto'
     plotaxes.ylimits = 'auto'
-    plotaxes.title = 'div(u)'
+    plotaxes.title = 'x disp'
     plotaxes.scaled = True
     #plotaxes.afteraxes = plot_interfaces
 
     # Set up for item on these axes:
     plotitem = plotaxes.new_plotitem(plot_type='2d_pcolor')
-    plotitem.plot_var = div
+    plotitem.plot_var = 5
     plotitem.pcolor_cmap = colormaps.blue_white_red
-    plotitem.pcolor_cmin = -0.1
-    plotitem.pcolor_cmax = 0.1
-    plotitem.add_colorbar = False
+    plotitem.pcolor_cmin = -3.0e-3
+    plotitem.pcolor_cmax = 3.0e-3
+    plotitem.add_colorbar = True
     plotitem.amr_celledges_show = [False]
     plotitem.amr_patchedges_show = [0]
 
 
     # Figure for curl:
     plotaxes = plotfigure.new_plotaxes()
-    plotaxes.axescmd = 'axes([.5,.1,.45,.4])' # 'subplot(224)'
+    plotaxes.axescmd = 'axes([.5,.1,.35,.35])' # 'subplot(224)'
     plotaxes.xlimits = 'auto'
     plotaxes.ylimits = 'auto'
-    plotaxes.title = 'curl(u)'
+    plotaxes.title = 'y disp'
     plotaxes.scaled = True
     #plotaxes.afteraxes = plot_interfaces
 
     # Set up for item on these axes:
     plotitem = plotaxes.new_plotitem(plot_type='2d_pcolor')
-    plotitem.plot_var = curl
+    plotitem.plot_var = 6
     plotitem.pcolor_cmap = colormaps.blue_white_red
-    plotitem.pcolor_cmin = -0.1
-    plotitem.pcolor_cmax = 0.1
+    plotitem.pcolor_cmin = -3.0e-3
+    plotitem.pcolor_cmax = 3.0e-3
     plotitem.add_colorbar = True
     plotitem.colorbar_shrink = 0.7
     plotitem.amr_celledges_show = [False]
