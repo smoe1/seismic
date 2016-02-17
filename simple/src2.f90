@@ -40,7 +40,7 @@ subroutine src2(meqn,mbc,mx,my,xlower,ylower,dx,dy,q,maux,aux,t,dt)
         x=xlower+(i-0.5)*dx
         y=ylower+(j-0.5)*dy
 
-        !if (x.ge.0.3.and.y.ge.0.3.and.x.le.0.8.and.y.le.0.8) then
+        if (x.ge.0.3.and.y.ge.0.3.and.x.le.0.8.and.y.le.0.8) then
           lam = aux(2,i,j)
           mu = aux(3,i,j)
 
@@ -60,7 +60,7 @@ subroutine src2(meqn,mbc,mx,my,xlower,ylower,dx,dy,q,maux,aux,t,dt)
           q(4,i,j)=q(4,i,j)+dt*u
           q(5,i,j)=q(5,i,j)+dt*v
          !print *,i1,j1,xlower,ylower," HERE2! ",q(4,i1,j1),q(5,i1,j1)
-        !endif
+        endif
 20      continue    
 
 end subroutine src2
